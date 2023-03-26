@@ -6,11 +6,13 @@ const {generateCaptcha}=require('./captcha_controllers')
 
 
 const createSessionStoreforUser=(req,res)=>{
+    req.flash('notification',JSON.stringify({message:"Logged in successfully.",success:true}))
     return res.redirect('/');
 }
 
 const destroySessionStoreforUser=(req,res)=>{
-    return res.redirect('/users/logIn');
+    req.flash('notification',JSON.stringify({message:"Logged out successfully",success:true}))
+    return res.redirect('/');
 }
 
 const displayLoginPage=(req,res)=>{
@@ -29,13 +31,64 @@ const displayLoginPage=(req,res)=>{
     });
 }
 
-const resetCredentials=(req,res)=>{
+const resetCredentialsPage=(req,res)=>{
     if(req.isAuthenticated()){
         
-        res.redirect('/')
+        return res.render('reset_user_credentials');
     }
+    return res.redirect('/')
+}
 
-    return res.render('reset_user_credentials');
+
+const changePasswordHandler=async (req,res)=>{
+    if(req.isAuthenticated()){
+        
+        try{
+            const {oldPassword,newPassword,confirmPassword}=req.body
+            const match=await bcrypt.compare(oldPassword,req.user.password)
+            
+            if(!match){
+                req.flash('notification',JSON.stringify({message:"Old password is incorrect.",success:false}))
+                return res.redirect('back')
+            }
+    
+            if(newPassword!==confirmPassword){
+                req.flash('notification',JSON.stringify({message:"New Password and Confirm password do not match",success:false}))
+                return res.redirect('back')
+            }
+           
+            //change password
+            let saltRounds=10;
+            bcrypt.hash(newPassword, saltRounds,async function(err, hash) {
+                
+                
+                let user=await User.findById(req.user._id)
+                user.password=hash
+                await user.save()
+
+
+                req.flash('notification',JSON.stringify({message:"Password updated successfully.",success:true}))
+                return res.redirect('/users/changePassword')
+            })
+           
+            
+           
+            
+            return
+            
+         
+        }
+        catch(err){
+            console.log('Error::',err)
+            req.flash('notification',JSON.stringify({message:"Internal error.Cannot change password",success:false}))
+            return res.redirect('back')
+        }
+
+       
+        
+      
+    }
+    return res.redirect('/')
 }
 
 
@@ -108,7 +161,8 @@ const createUser=async (req,res)=>{
         // Store hash in your password DB.
         await User.create({
             email:email,
-            password:hash
+            password:hash,
+            authType:'local'
         })
     });
        
@@ -122,4 +176,4 @@ const createUser=async (req,res)=>{
 
 
 
-module.exports={createSessionStoreforUser,destroySessionStoreforUser,displayLoginPage,resetCredentials,displaySignUp,createUser}
+module.exports={createSessionStoreforUser,destroySessionStoreforUser,displayLoginPage,resetCredentialsPage,displaySignUp,createUser,changePasswordHandler}

@@ -20,10 +20,24 @@ passport.setAuthenticatedUser=function (req,res,next){
 }
 
 
+
+//
+passport.isLocalLogin=function (req,res,next){
+    if(req.isAuthenticated()) {
+        if(res.locals.user.authType==='local'){
+            return next()
+        }
+        req.flash('notification',JSON.stringify({message:'You are not permitted to change password.',success:false}))
+        return res.redirect('/')
+    }
+    return res.redirect('/')
+}
+
 //called after req.login(userid) and useId gets stored in session
 passport.serializeUser((userId,done)=>{
     return done(null,userId)
 })
+
 
 
 //from the session pull user and store it in req.user 

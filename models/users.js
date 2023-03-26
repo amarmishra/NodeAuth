@@ -14,6 +14,10 @@ const userSchema=new mongoose.Schema({
     },
     picture:{
         type:String,
+    },
+    authType:{
+        type:String,
+        
     }
 },{timestamps:true})
 

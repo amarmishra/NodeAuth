@@ -49,10 +49,11 @@ const createSessionForGoogleLogin=async (req,res,next)=>{
             user=await User.create({
                 email:userinfo.email,
                 name:userinfo.name,
-                picture:userinfo.picture
+                picture:userinfo.picture,
+                authType:'google'
             })
         }
-        console.log("User Id is :::",user.id)
+      
         // passport function that initiates session creation --> after this passport.serializeUser gets called automatically
         req.login(user.id,(err)=>{
             if(err){throw err}
@@ -72,20 +73,24 @@ const createSessionForLocalLogin=async (req,res,next)=>{
     //receive form fields 1.(emailorusername) and 2.password here
     
    const {email,password,captcha}=req.body
-   console.log('Email:',email,'Password:',password)
    try {
         let user=await User.findOne({email:email})
-        console.log(user)
 
         if(!user){
             //email and password do not match
 
-            req.flash('notification',JSON.stringify({message:'Email entered does not match',success:false}))
+            req.flash('notification',JSON.stringify({message:'User does not exist. Please sign up.',success:false}))
             return res.redirect('back')
         }
 
-        const match= bcrypt.compare(password,user.password)
+        if(!user.password){
+            req.flash('notification',JSON.stringify({message:`User exists. Try login with ${(user.authType).toUpperCase()}`,success:false}))
+            return res.redirect('back')
+        }
+        
+        let match=await bcrypt.compare(password,user.password)
 
+        
         if(!match){
             req.flash('notification',JSON.stringify({message:'Password entered does not match',success:false}))
             return res.redirect('back')
@@ -94,8 +99,7 @@ const createSessionForLocalLogin=async (req,res,next)=>{
 
         if(captcha!==req.session.captcha){
             //captcah verification failed
-            console.log(captcha," is entered")
-            console.log(req.session.captcha," is needed")
+           
             req.flash('notification',JSON.stringify({message:'Captcha verification failed',success:false}))
             return res.redirect('back')
         }
@@ -107,7 +111,6 @@ const createSessionForLocalLogin=async (req,res,next)=>{
         //passport function that initiates session creation --> after this passport.serializeUser gets called automatically
         req.login(user.id,(err)=>{
             if(err){throw err}
-            req.flash('notification',JSON.stringify({message:'Logged In ',success:true}))
             return next()
         })
 
@@ -118,19 +121,13 @@ const createSessionForLocalLogin=async (req,res,next)=>{
     req.flash('notification',JSON.stringify({message:'Failed to STORE session  FOR THE user',success:false}))
     return res.redirect('back')
    }
-   console.log('Email or password do not match')
-            req.flash('notification',JSON.stringify({message:'Email or password do not match',success:false}))
-
+  
 }
 
 const destroySession= (req,res,next)=>{
     try{ 
           req.logout(function(err) {
               if (err) { throw err }
-              req.flash('notification',JSON.stringify({
-                    message:"Logged out successfully",
-                    success: true 
-              }))
               return next()
           });
       }

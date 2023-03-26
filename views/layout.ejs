@@ -1,9 +1,20 @@
 <html>
     <head>
+        <link rel="stylesheet" href="/css/layout.css">
         <%- style %>
     </head>
     <body>
+    
         <!-- place header here -->
+        <% if(locals.notification){ %>
+            <% if(notification.success){ %>
+                <div class='notification-success'><%= notification.message %></div>
+            <% }else{ %>
+                <div class='notification-error'><%= notification.message %></div>
+            <% } %>
+            
+        <% } %>
+
         <%- body %>
         <!-- place footer here -->
     </body>

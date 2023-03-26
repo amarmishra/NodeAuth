@@ -1,0 +1,58 @@
+
+
+/* notification style */
+.notification-error{
+    animation: notification-animation 3.2s;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: #0a0908;
+    color: #fdf97d;
+    padding: 7px;
+    font-size: larger;
+    border-radius: 0.1em;
+    margin: 0;
+    text-align: center;
+    visibility: hidden;
+    opacity: 0;
+    width: -webkit-fill-available;
+}
+.notification-success{
+    animation: notification-animation 2.5s;
+
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: #3b6e26;
+    color: #fdf97d;
+    padding: 6px;
+    font-size: large;
+    border-radius: 0.1em;
+    margin: 0;
+    text-align: center;
+    visibility: hidden;
+    opacity: 0;
+    width: -webkit-fill-available;
+}
+
+@keyframes notification-animation {
+    0%{
+        visibility: visible;
+        opacity: 1;
+        
+      }
+      
+      50%{
+        opacity: 0.9;
+      }
+      60%{
+        opacity: 0.85;
+      }
+      95%{
+        opacity: 0.8;
+      }
+      100%{
+        opacity: 0;
+        visibility: hidden;
+      }
+}
