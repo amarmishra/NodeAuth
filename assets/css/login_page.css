@@ -1,0 +1,142 @@
+a{
+    text-decoration: none;
+    cursor: pointer;
+}
+p{
+    font-size: 1.4em;
+    text-align: center;
+    margin: 35px auto;
+
+}
+button{
+    cursor: pointer;
+}
+#form-wrapper{
+    max-width: 50em;
+    min-width: 21em;
+    margin: 20px auto;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+    align-items: center;
+}
+
+
+
+#form-wrapper .social-auth{
+    display: flex;
+    flex-flow: column;
+    justify-content: space-around;
+    min-height: 9em;
+    min-width: 16em;
+    align-items: center;
+}
+#form-wrapper .social-auth a{
+    width: 100%;
+}
+#form-wrapper .social-auth button{
+    border: 0.5px solid black;
+    background: white;
+    border-radius: 0.3em;
+    padding: 0px 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    width:100%;
+}
+#form-wrapper .social-auth button::after{
+    content: '';
+    background-image: url(../images/google_logo.png);
+    box-sizing: border-box;
+    width: 57px;
+    height: 32px;
+    
+    display: inline-block;
+    background-repeat: no-repeat;
+    background-size: contain;
+    border: none;
+    margin: 6px;
+}
+
+
+#form-wrapper .local-auth form{
+    display: flex;
+    flex-flow: column;
+    justify-content: space-around;
+    align-items: center;
+    min-height: 10em;
+    min-width: 18em;
+    background: #463f33;
+    padding: 14px;
+    box-shadow: 0 0 2px 5px #5f6e5b inset;
+    margin: 5px;
+}
+
+#form-wrapper .local-auth form input{
+    border: none;
+    border-bottom: 0.5px black solid;
+    border-radius: 0.3em;
+    padding: 6px;
+    text-align: center;
+    width: -webkit-fill-available;
+    font-size: larger;
+}
+
+
+#form-wrapper form a{
+    color: white
+}
+#form-wrapper form div.captcha{
+    background: #c4d9c3;
+    color: #217020;
+    padding: 5px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    border-radius: 0.3em;
+}
+#form-wrapper form div.captcha input{ 
+    width: 38%;
+    font-size: smaller;
+}
+#form-wrapper form div.captcha button{
+    margin: 0 4px;
+    background: #9acd321f;
+    font-size: 0.8em;
+    color: #42641d;
+    font-weight: bold;
+    border: none;
+}
+
+
+#form-wrapper form .action-panel{
+    display: flex;
+    justify-content: space-between;
+    width: 98%;
+}
+#form-wrapper .action-panel button{
+    color: black;
+    background: #81cd81;
+    text-decoration: none;
+    padding: 10px;
+    font-size: 0.8em;
+    border-radius: 0.3em;
+    border: none;
+}
+
+
+.sign-up a{
+    color: black;
+    background: #81cd81;
+    text-decoration: none;
+    padding: 5px;
+    border-radius: 0.3em;
+    margin:0 5px;
+}
+.sign-up p{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+}

@@ -1,0 +1,35 @@
+<link rel="stylesheet" href="/css/login_page.css">
+
+<p>To continue please login..</p>
+
+
+<% if(locals.notification){ %>
+    <% if(notification.success){ %>
+        <div class='notification-success'><%= notification.message %></div>
+    <% }else{ %>
+        <div class='notification-error'><%= notification.message %></div>
+    <% } %>
+    
+<%}%>
+
+<div id="form-wrapper">
+    
+    <div class="social-auth">
+        <a href=<%= googleLoginURI %> ><button>LOGIN WITH </button></a>
+    </div>
+   
+    <div class="local-auth">
+        <form method="post" action="/users/auth/local/createSession">
+            <input type="email" name="email" placeholder="Email" required>
+            <input type="password" name="password" placeholder="Password" required>
+            <div class="captcha"><div><label id="captcha-value" for="captcha"><%= locals.captcha %></label><button type="button" id="refresh-captcha-button">Refresh</button></div><input name="captcha" placeholder="Verify captcha" required></div>
+            <div class="action-panel"><a href="/users/resetCredentials">Lost Username/Password ?</a><button type="submit">LOG IN</button></div>       
+        </form>
+    </div>
+    
+    <div class="sign-up">
+        <p>Don't have an account yet ? <a href="/users/signUp">SIGN UP</a></p>
+        
+    </div>
+</div>
+<script type="text/javascript" src="/js/login_page.js"></script>

@@ -1,0 +1,95 @@
+p{
+    font-size: 1.4em;
+    text-align: center;
+    margin: 30px auto;
+
+}
+a{
+    text-decoration: none;
+    cursor: pointer;
+}
+button{
+    cursor: pointer;
+}
+#form-wrapper{
+    min-width: 20em;
+    max-width: 33em;
+    margin: 20px auto;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: space-around;
+    align-items: center;
+}
+#form-wrapper .signup-wrapper{
+    width: 85%;
+}
+#sign-up-form{
+    display: flex;
+    flex-flow: column;
+    justify-content: space-around;
+    align-items: center;
+    min-height: 9em;
+    min-width: 16em;
+    height: 11em;
+    background: #463f33;
+    padding: 14px;
+    box-shadow: 0 0 2px 5px #5f6e5b inset;
+}
+#sign-up-form input{
+    text-align: center;
+    border-radius: 0.3em;
+    font-size: 1.2em;
+    padding: 6px 0;
+    width: 85%;
+}
+#sign-up-form button{
+    color: black;
+    background: #81cd81;
+    text-decoration: none;
+    padding: 10px;
+    font-size: 0.8em;
+    border-radius: 0.3em;
+    border: none;
+}
+
+
+
+.social-auth{
+    display: flex;
+    flex-flow: column;
+    justify-content: space-around;
+    min-height: 9em;
+    min-width: 16em;
+    align-items: center;
+    width: 90%;
+}
+.social-auth a{
+    width: 100%;
+}
+
+
+.social-auth button{
+    border: 0.5px solid black;
+    background: white;
+    border-radius: 0.3em;
+    padding: 0px 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.9em;
+    width: 100%;
+}
+
+.social-auth button::after{
+    content: '';
+    background-image: url(../images/google_logo.png);
+    box-sizing: border-box;
+    width: 67px;
+    height: 39px;
+    
+    display: inline-block;
+    background-repeat: no-repeat;
+    background-size: contain;
+    border: none;
+    margin: 6px;
+}

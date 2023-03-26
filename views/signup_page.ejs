@@ -1,0 +1,26 @@
+<link rel="stylesheet" href="/css/signup_page.css">
+<p>SIGN UP USER</p>
+<div id="form-wrapper">
+    <div class="signup-wrapper">
+        <form id="sign-up-form" method="post" action="/users/createUser">
+            <input type="email" name="email" placeholder="Email" required>
+            <input type="password" name="password" placeholder="Password" required>
+            <input type="password" name="confirmPassword" placeholder="Confirm Password" required>
+            <button type="submit">SIGN UP</button>       
+        </form>
+    </div>
+    <% if(locals.notification){ %>
+        <% if(notification.success){ %>
+            <div class='notification-success'><%= notification.message %></div>
+        <% }else{ %>
+            <div class='notification-error'><%= notification.message %></div>
+        <% } %>
+        
+    <%}%>
+    
+    <div class="social-auth">
+        <a href=<%= googleLoginURI %> ><button>SIGN-UP WITH</button></a>
+    </div>
+    </div>
+
+<script type="text/javascript" src="/js/signup_page.css">
