@@ -4,7 +4,7 @@ function refreshCaptcha(req,res){
 
     let captcha=generateCaptcha(5)
      
-    //refresh captcha in the session object
+    //refresh captcha in the session object for comparing it in authentication
     req.session['captcha']=captcha;
 
     return res.json({

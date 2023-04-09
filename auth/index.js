@@ -1,6 +1,7 @@
 require('dotenv').config()
 const base64=require('base-64')
 const bcrypt=require('bcrypt')
+const bcryptSalt=process.env.BCRYPT_SALT
 const passport=require('passport')
 const { urlencoded } = require('express')
 

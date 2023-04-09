@@ -1,6 +1,8 @@
 require('dotenv').config()
 const bcrypt=require('bcrypt')
 
+const bcryptSalt=parseInt(process.env.BCRYPT_SALT)
+
 const User=require('../models/users')
 const {generateCaptcha}=require('./captcha_controllers')
 
@@ -143,12 +145,7 @@ const createUser=async (req,res)=>{
     const {email,password,confirmPassword} =req.body
     if(password!==confirmPassword){
 
-        //send notification: password and confirm password do not match
-        
-       
-        //console.log("Session flash before redirect",req.session.flash)
-        // delete req.session.flash
-       // req.session['notification']="Password and Confirm password do not match"
+      
         
         req.flash('notification',JSON.stringify({message:"Password and Confirm password do not match",success:false}))
         // req.session.save()
@@ -156,16 +153,15 @@ const createUser=async (req,res)=>{
        
     }
 
-    let saltRounds=10;
-    await bcrypt.hash(password, saltRounds,async function(err, hash) {
+ 
+    let hash=await bcrypt.hash(password, Number(bcryptSalt))
         // Store hash in your password DB.
         await User.create({
             email:email,
             password:hash,
             authType:'local'
-        })
-    });
-       
+        })    
+   
         
         req.flash('notification',JSON.stringify({message:"User created successfully.Please login",success:true}))
         return res.redirect('/users/logIn')
@@ -174,6 +170,33 @@ const createUser=async (req,res)=>{
     
 }
 
+const displayForgotPasswordPage=(req,res)=>{
+    return res.render('forgot_password')
+}
 
 
-module.exports={createSessionStoreforUser,destroySessionStoreforUser,displayLoginPage,resetCredentialsPage,displaySignUp,createUser,changePasswordHandler}
+const displayNewPasswordView=(req,res)=>{
+    return res.render('new_password')
+}
+
+const finalizeForgotPassword=async (req,res)=>{
+
+    const {password,confirmPassword,userId}=req.body
+
+    if(password!==confirmPassword){
+        //add notification that password and confirmpass do not match
+        req.flash('notification',JSON.stringify({message:"Password and ConfirmPass do not match",success:false}))
+        return res.redirect('/users/logIn')
+    }
+
+
+    const hash = await bcrypt.hash(password, Number(bcryptSalt));
+    let user=await User.findById(userId);
+    user.password=hash;
+    await user.save()
+
+    req.flash('notification',JSON.stringify({message:"Password set successfully.",success:true}))
+    return res.redirect('/users/logIn')
+} 
+
+module.exports={createSessionStoreforUser,destroySessionStoreforUser,displayLoginPage,resetCredentialsPage,displaySignUp,createUser,changePasswordHandler,displayForgotPasswordPage,displayNewPasswordView,finalizeForgotPassword}
