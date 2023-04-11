@@ -5,7 +5,7 @@ const bcryptSalt=process.env.BCRYPT_SALT
 const passport=require('passport')
 const { urlencoded } = require('express')
 
-const {GOOGLE_AUTH_CLIENT_ID,GOOGLE_AUTH_CLIENT_SECRET,GOOGLE_AUTH_REDIRECT_URI}=process.env
+
 const User=require('../models/users')
 
 
@@ -20,9 +20,9 @@ const createSessionForGoogleLogin=async (req,res,next)=>{
     const response=await fetch('https://oauth2.googleapis.com/token',{
         method:'POST',
         body:JSON.stringify({
-                client_id: GOOGLE_AUTH_CLIENT_ID,
-                client_secret: GOOGLE_AUTH_CLIENT_SECRET,
-                redirect_uri: GOOGLE_AUTH_REDIRECT_URI,
+                client_id: process.env.GOOGLE_AUTH_CLIENT_ID,
+                client_secret: process.env.GOOGLE_AUTH_CLIENT_SECRET,
+                redirect_uri: process.env.GOOGLE_AUTH_REDIRECT_URI,
                 grant_type:'authorization_code',
                 code:code,
               
