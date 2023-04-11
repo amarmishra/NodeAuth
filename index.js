@@ -2,6 +2,8 @@ require('dotenv').config()
 const express=require('express')
 
 const app=express()
+
+const PORT=process.env.EXPRESS_SERVER_PORT_NO || 8000
 const db=require('./config/mongoose')
 
 app.use(express.static('./assets'))
@@ -76,7 +78,7 @@ app.use(passport.setAuthenticatedUser)
 
 app.use('/',require('./routes'))
 
-app.listen(process.env.EXPRESS_SERVER_PORT_NO,(err)=>{
+app.listen(PORT,(err)=>{
     if(err){return console.log(`Error:${err}`)}
-    console.log(`EXPRESS Server running successfully on port${process.env.EXPRESS_SERVER_PORT_NO}`)
+    console.log(`EXPRESS Server running successfully on port${PORT}`)
 })
