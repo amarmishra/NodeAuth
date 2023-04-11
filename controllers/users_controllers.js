@@ -121,12 +121,10 @@ const displaySignUp=(req,res)=>{
 //helper function for displayLoginPage and displaySinUp
 function getGoogleConsentPageURI(){
 
-    const {GOOGLE_AUTH_URI,GOOGLE_AUTH_CLIENT_ID,GOOGLE_AUTH_REDIRECT_URI}=process.env
-
-    let main=GOOGLE_AUTH_URI
+    let main=process.env.GOOGLE_AUTH_URI
     let options={
-        client_id:GOOGLE_AUTH_CLIENT_ID,
-        redirect_uri:GOOGLE_AUTH_REDIRECT_URI,
+        client_id: process.env.GOOGLE_AUTH_CLIENT_ID,
+        redirect_uri: process.env.GOOGLE_AUTH_REDIRECT_URI,
         response_type:'code',
         approval_prompt:'force',  
          //include above (approval_prompt:'force')  especially for prompting 
