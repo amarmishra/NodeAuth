@@ -12,7 +12,7 @@ db.on('error',()=>{
 })
 
 db.once('open',()=>{
-    console.log("Successfully connected to the database")
+    console.log("Successfully connected to the database : ")
 })
 
 module.exports=db
