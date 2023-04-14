@@ -41,7 +41,7 @@ async function generateLinkWithResetToken(req,res){
      
         
         //send plain resetToken in the link along with userId
-        const link=`${EXPRESS_SERVER_URL}/users/setNewPasswordPage/?token=${resetToken}&userId=${user.id}`
+        const link=`${process.env.EXPRESS_SERVER_URL}/users/setNewPasswordPage/?token=${resetToken}&userId=${user.id}`
         //sendMail
         sendMailService(receiverMail,link)
 
