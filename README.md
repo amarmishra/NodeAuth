@@ -11,7 +11,7 @@
 
 # 4. Pull this repository from git.
 
-Run "npm init" command in the root folder of the project. This will load following dependencies:
+# 5. Run "npm init" command in the root folder of the project. This will load following dependencies:
 
     "base-64": "^1.0.0",
     "bcrypt": "^5.1.0",
@@ -31,7 +31,7 @@ Run "npm init" command in the root folder of the project. This will load followi
     "nodemon": "^2.0.21",
     "passport": "^0.6.0"
 
-# 5. Add .env file in the root folder and add following variables:
+# 6. Add .env file in the root folder and add following variables:
 
     EXPRESS_SERVER_PORT_NO= Port to run express server 
     MONGODB_SERVER_URL= Connection string to link mongoDb database
