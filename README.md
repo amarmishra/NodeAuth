@@ -53,7 +53,7 @@
     GMAIL_PASSWORD= Actual Password or 16 letter key (if 2Factor Auth is enabled on google account)
     
     #bcrypt_salt_number
-    BCRYPT_SALT='10'
+    BCRYPT_SALT= Bcrypt salt rounds
 
 
 
